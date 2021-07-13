@@ -1,0 +1,55 @@
+/*
+Les déclencheurs ne peuvent s'appliquer que sur des tables dont le moteur de stockage est dit transactionnel.
+
+Le moteur de stockage par défaut lorsqu'une table est créée est MyIsam, qui ne supporte pas les transactions. L'autre moteur de stockage le plus utilisé supportant les transactions est le moteur InnoDB, il faut donc utiliser celui-ci.
+
+
+*/
+ALTER TABLE categories ENGINE=InnoDB;
+ALTER TABLE countries ENGINE=InnoDB;
+ALTER TABLE customers ENGINE=InnoDB;
+ALTER TABLE departments ENGINE=InnoDB;
+ALTER TABLE employees ENGINE=InnoDB;
+ALTER TABLE orders ENGINE=InnoDB;
+ALTER TABLE orders_details ENGINE=InnoDB;
+ALTER TABLE posts ENGINE=InnoDB;
+ALTER TABLE products ENGINE=InnoDB;
+ALTER TABLE shops ENGINE=InnoDB;
+ALTER TABLE suppliers ENGINE=InnoDB;
+
+
+/*CREATE TRIGGER nom 
+[MOMENT] [EVENEMENT]  
+ON [table] 
+FOR EACH ROW
+BEGIN
+   -- [requête] 
+END*/
+
+
+/*EXERCICE PHASE 2 :*/
+
+CREATE TRIGGER `after_products_update` AFTER UPDATE ON `products`
+ FOR EACH ROW BEGIN
+IF NEW.pro_stock < NEW.pro_stock_alert
+THEN
+INSERT INTO commander_articles(codart,qte,datedujour) VALUES (New.pro_id,1,Now());
+END IF;
+END
+
+--cas1--
+  update products
+ set pro_stock = 6
+
+ where pro_id = 8 and pro_name = 'Athos'
+-- cas 2 --
+  update products
+ set pro_stock = 4
+
+ where pro_id = 8 and pro_name = 'Athos'
+
+ --cas 3 -- 
+   update products
+ set pro_stock = 3
+
+ where pro_id = 8 and pro_name = 'Athos'
