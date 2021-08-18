@@ -4,7 +4,7 @@ function connexionBase()
    // Paramètre de connexion serveur
    $host = "localhost";
    $login= "root";  // Votre loggin d'accès au serveur de BDD 
-   $password="Root!123root";    // Le Password pour vous identifier auprès du serveur
+   $password="";    // Le Password pour vous identifier auprès du serveur
    $base = "jarditou";  // La bdd avec laquelle vous voulez travailler 
 
    try 
